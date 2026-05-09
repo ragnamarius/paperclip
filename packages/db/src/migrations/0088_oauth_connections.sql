@@ -37,6 +37,6 @@ ALTER TABLE "oauth_connections" ADD CONSTRAINT "oauth_connections_access_token_s
 ALTER TABLE "oauth_connections" ADD CONSTRAINT "oauth_connections_refresh_token_secret_id_company_secrets_id_fk" FOREIGN KEY ("refresh_token_secret_id") REFERENCES "public"."company_secrets"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "oauth_authorization_states" ADD CONSTRAINT "oauth_authorization_states_company_id_companies_id_fk" FOREIGN KEY ("company_id") REFERENCES "public"."companies"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "oauth_authorization_states" ADD CONSTRAINT "oauth_authorization_states_initiated_by_user_id_user_id_fk" FOREIGN KEY ("initiated_by_user_id") REFERENCES "public"."user"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-CREATE UNIQUE INDEX "oauth_connections_company_provider_uniq" ON "oauth_connections" USING btree ("company_id","provider_id");--> statement-breakpoint
+CREATE UNIQUE INDEX "oauth_connections_company_provider_uq" ON "oauth_connections" USING btree ("company_id","provider_id");--> statement-breakpoint
 CREATE INDEX "oauth_connections_refresh_idx" ON "oauth_connections" USING btree ("access_token_expires_at") WHERE "oauth_connections"."status" = 'active' AND "oauth_connections"."refresh_token_secret_id" IS NOT NULL;--> statement-breakpoint
 CREATE INDEX "oauth_authorization_states_expiry_idx" ON "oauth_authorization_states" USING btree ("expires_at") WHERE "oauth_authorization_states"."consumed_at" IS NULL;

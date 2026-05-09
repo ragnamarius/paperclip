@@ -27,7 +27,7 @@ export const oauthConnections = pgTable(
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => ({
-    companyProviderUniq: uniqueIndex("oauth_connections_company_provider_uniq").on(
+    companyProviderUniq: uniqueIndex("oauth_connections_company_provider_uq").on(
       table.companyId,
       table.providerId,
     ),
